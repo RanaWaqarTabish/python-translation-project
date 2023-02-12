@@ -1,0 +1,14 @@
+[user]
+	name = Rana Waqar Tabish
+	email = rzt0054@auburn.edu
+[github]
+	user = RanaWaqarTabish
+[core]
+	editor = nano -w
+[color]
+	ui = true
+[alias]
+	dag = log --oneline --graph --decorate
+[gui]
+	recentrepo = C:/Users/waqar tabish/git-intro/remot-repo/joaks/au-bootcamp-git-intro
+	recentrepo = C:/Users/waqar tabish/git-intro/remot-repo/waqar/remote-repo
