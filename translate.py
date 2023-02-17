@@ -182,16 +182,22 @@ def get_longest_peptide(rna_sequence, genetic_code):
     #         peptide += amino_acid
     # return peptide
     # Function to get the longest peptide encoded by an RNA sequence
-    peptides = []
+    peptides_list = []
+    max_peptide = ""
     # Get the reverse and complement of the RNA sequence
     rna_sequence_rc = reverse_and_complement(rna_sequence)
     # Explore the six reading frames
-
-    peptides.append(get_all_translations(rna_sequence, genetic_code))
-    peptides.append(get_all_translations(rna_sequence_rc, genetic_code))
+    peptides = (get_all_translations(rna_sequence, genetic_code))
+    peptides_rseq =(get_all_translations(rna_sequence_rc, genetic_code))
+    peptides_list = peptides + peptides_rseq
+    # peptides_list.append(peptides_rseq)
+    # peptides.append(get_all_translations(rna_sequence, genetic_code))
+    # peptides.append(get_all_translations(rna_sequence_rc, genetic_code))
     # Return the longest peptide
-    print(peptides)
-    return max(peptides)
+    print(peptides_list)
+    if peptides_list:
+        max_peptide = max(peptides_list, key=len)
+    return max_peptide
 
 if __name__ == '__main__':
     genetic_code = {'GUC': 'V', 'ACC': 'T', 'GUA': 'V', 'GUG': 'V', 'ACU': 'T', 'AAC': 'N', 'CCU': 'P', 'UGG': 'W', 'AGC': 'S', 'AUC': 'I', 'CAU': 'H', 'AAU': 'N', 'AGU': 'S', 'GUU': 'V', 'CAC': 'H', 'ACG': 'T', 'CCG': 'P', 'CCA': 'P', 'ACA': 'T', 'CCC': 'P', 'UGU': 'C', 'GGU': 'G', 'UCU': 'S', 'GCG': 'A', 'UGC': 'C', 'CAG': 'Q', 'GAU': 'D', 'UAU': 'Y', 'CGG': 'R', 'UCG': 'S', 'AGG': 'R', 'GGG': 'G', 'UCC': 'S', 'UCA': 'S', 'UAA': '*', 'GGA': 'G', 'UAC': 'Y', 'GAC': 'D', 'UAG': '*', 'AUA': 'I', 'GCA': 'A', 'CUU': 'L', 'GGC': 'G', 'AUG': 'M', 'CUG': 'L', 'GAG': 'E', 'CUC': 'L', 'AGA': 'R', 'CUA': 'L', 'GCC': 'A', 'AAA': 'K', 'AAG': 'K', 'CAA': 'Q', 'UUU': 'F', 'CGU': 'R', 'CGC': 'R', 'CGA': 'R', 'GCU': 'A', 'GAA': 'E', 'AUU': 'I', 'UUG': 'L', 'UUA': 'L', 'UGA': '*', 'UUC': 'F'}
