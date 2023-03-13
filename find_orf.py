@@ -57,19 +57,23 @@ def vet_nucleotide_sequence(sequence):
     # any valid RNA and DNA sequence strings, respectively (and only strings of
     # RNA and DNA bases).
     # Read the docstring above for additional clues.
-    rna_pattern_str = r'AUCG'
-    dna_pattern_str = r'ATCG'
-    ##########################################################################
+    rna_pattern_str = r'^[ACGUacgu]*$'
+    dna_pattern_str = r'^[ACGTacgt]*$'
 
     rna_pattern = re.compile(rna_pattern_str)
     dna_pattern = re.compile(dna_pattern_str)
 
-    if rna_pattern.match(sequence):
+    # Check if input sequence is valid RNA or DNA sequence
+    if rna_pattern.search(sequence) is not None and dna_pattern.search(sequence) is None:
         return
-    if dna_pattern.match(sequence):
+    elif rna_pattern.search(sequence) is None and dna_pattern.search(sequence) is not None:
         return
     else:
         raise Exception("Invalid sequence: {0!r}".format(sequence))
+    # if dna_pattern.match(sequence):
+    #     return "None"
+    # else:
+    #     raise Exception("Invalid sequence: {0!r}".format(sequence))
 
 
 
@@ -119,16 +123,12 @@ def vet_codon(codon):
     # Change `codon_pattern_str` so that it will match any valid codons, and
     # only valid codons.
     # Read the docstring above for additional clues.
-    codon_pattern_str = r'AUG'
-    ##########################################################################
-
-    codon_pattern = re.compile(codon_pattern_str)
-
+    codon_pattern_str = "^(" + "|".join(map(re.escape, codon_table.keys())) + ")$"
+    codon_pattern = re.compile(codon_pattern_str, re.IGNORECASE)
     if codon_pattern.match(codon):
         return
     else:
         raise Exception("Invalid codon: {0!r}".format(codon))
-
 
 def find_first_orf(sequence,
         start_codons = ['AUG'],
@@ -207,7 +207,10 @@ def find_first_orf(sequence,
     # exactly. Change `orf_pattern_str` so that it will match any open reading
     # frame.
     # Read the docstring above for additional clues.
-    orf_pattern_str = r'AUGGUAUAA'
+    start_regex = '|'.join(start_codons)  # join start codons with |
+    stop_regex = '|'.join(stop_codons)  # join stop codons with |
+    codon_regex = '[ACGU]{3}'  # any triplet of A,C,G, or U
+    orf_pattern_str = f'({start_regex})({codon_regex})*({stop_regex})'
     ##########################################################################
 
     # Create the regular expression object

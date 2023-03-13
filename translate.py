@@ -11,7 +11,7 @@ def translate_sequence(rna_sequence, genetic_code):
     or the end of `rna_sequence` is reached.
 
     If `rna_sequence` is less than 3 bases long, or starts with a stop codon,
-    an empty string is returned.
+    an empty string is returned
 
     Parameters
     ----------
