@@ -123,7 +123,7 @@ def vet_codon(codon):
     # Change `codon_pattern_str` so that it will match any valid codons, and
     # only valid codons.
     # Read the docstring above for additional clues.
-    codon_pattern_str = "^(" + "|".join(map(re.escape, codon_table.keys())) + ")$"
+    codon_pattern_str = r'^[ACGTU]{3}$'
     codon_pattern = re.compile(codon_pattern_str, re.IGNORECASE)
     if codon_pattern.match(codon):
         return
