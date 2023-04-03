@@ -123,16 +123,16 @@ def vet_codon(codon):
     # Change `codon_pattern_str` so that it will match any valid codons, and
     # only valid codons.
     # Read the docstring above for additional clues.
-    codon_pattern_str = r'^[ACGTU]{3}$'
+    codon_pattern_str = r'^[ACGTUacgtu]{3}$'
     codon_pattern = re.compile(codon_pattern_str, re.IGNORECASE)
     if codon_pattern.match(codon):
         return
     else:
         raise Exception("Invalid codon: {0!r}".format(codon))
 
-def find_first_orf(sequence,
-        start_codons = ['AUG'],
-        stop_codons = ['UAA', 'UAG', 'UGA']):
+def find_first_orf(sequence):
+        start_codons = ['AUG']
+        stop_codons = ['UAA', 'UAG', 'UGA']
     """
     Return the first open-reading frame in the DNA or RNA `sequence`.
 
